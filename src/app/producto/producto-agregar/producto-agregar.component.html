@@ -1,0 +1,6 @@
+<h3>Agregar Producto</h3>
+<div class="my-3">
+    <label for="nombre" class="form-label">Nombre:</label>
+    <input class="form-control" [(ngModel)]="nuevoProducto.nombre" required>
+</div>
+<button type="submit" class="btn btn-primary"(click)="guardarProducto()">Guardar</button>

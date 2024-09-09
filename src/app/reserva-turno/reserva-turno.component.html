@@ -1,0 +1,50 @@
+<div>
+    <h3>Reserva de Turnos</h3>
+    <form (ngSubmit)="guardarReserva()" #reservaForm="ngForm">
+      <div class="my-3">
+        <label for="fechaInput">Fecha:</label>
+        <input class="form-control" id="fechaInput" type="date" name="fecha" [(ngModel)]="nuevaReserva.fecha" required>
+      </div>
+  
+      <div class="my-3">
+        <label for="horaInicioInput">Hora Inicio Agendamiento:</label>
+        <select class="form-select" id="horaInicioInput" name="horaInicioAgendamiento" [(ngModel)]="nuevaReserva.horaInicioAgendamiento" required>
+          <option *ngFor="let hora of horasDisponibles" [value]="hora">{{ hora }}</option>
+        </select>
+      </div>
+  
+      <div class="my-3">
+        <label for="horaFinInput">Hora Fin Agendamiento:</label>
+        <select class="form-select" id="horaFinInput" name="horaFinAgendamiento" [(ngModel)]="nuevaReserva.horaFinAgendamiento" required>
+          <option *ngFor="let hora of horasDisponibles" [value]="hora">{{ hora }}</option>
+        </select>
+      </div>
+  
+      <div class="my-3">
+        <label for="proveedorSelect">Seleccione el proveedor:</label>
+        <select class="form-select" id="proveedorSelect" name="proveedor" [(ngModel)]="nuevaReserva.proveedor">
+          <option *ngFor="let proveedor of proveedoresDisponibles" [ngValue]="proveedor">{{ proveedor.nombre }}</option>
+        </select>
+      </div>
+  
+      <!-- Productos y cantidades
+      <h5>Productos</h5>
+      <div *ngFor="let detalle of nuevaReserva.detalles; let i = index" class="my-3">
+        <label for="productoSelect">Producto {{ i + 1 }}:</label>
+        <select class="form-select" id="productoSelect" [(ngModel)]="detalle.producto" name="producto_{{ i }}" required>
+          <option *ngFor="let producto of productosDisponibles" [ngValue]="producto">{{ producto.nombre }}</option>
+        </select>
+  
+        <label for="cantidadInput">Cantidad:</label>
+        <input class="form-control" id="cantidadInput" type="number" [(ngModel)]="detalle.cantidad" name="cantidad_{{ i }}" required>
+      </div> -->
+  
+      <!-- Botón para agregar más productos -->
+      <!-- <button type="button" class="btn btn-secondary" (click)="agregarProducto()">Agregar Producto</button> -->
+  
+      <!-- Botón de envío -->
+
+      <button type="submit" class="btn btn-primary">Guardar Reserva</button>
+    </form>
+  </div>
+  

@@ -1,0 +1,27 @@
+<mat-dialog-content>
+    <div *ngIf="!reserva.horaInicioRecepcion && !reserva.horaFinRecepcion; else noHora">
+      <h5 class="mb-3">Jaulas Disponibles:</h5>
+      <div class="mb-3">
+        <label for="jaulaSelect" class="form-label">Seleccione la jaula:</label>
+        <select class="form-select" id="jaulaSelect" name="jaula" [(ngModel)]="reserva.jaula">
+          <option *ngFor="let jaula of data.jaulas" [ngValue]="jaula">{{ jaula.nombre }}</option>
+        </select>
+      </div>
+    </div>
+    
+    <ng-template #noHora>
+      <div class="alert alert-warning" role="alert">
+        <p>¿Desea finalizar el turno?</p>
+      </div>
+    </ng-template>
+  </mat-dialog-content>
+  
+  <mat-dialog-actions>
+    <div class="d-flex justify-content-between">
+      <button mat-button class="btn btn-success me-2" (click)="guardarCambios()">
+        {{ reserva.horaInicioRecepcion || reserva.horaFinRecepcion ? 'Confirmar' : 'Guardar' }}
+      </button>
+      <button mat-button class="btn btn-danger" (click)="onNoClick()">Cancelar</button>
+    </div>
+  </mat-dialog-actions>
+  

@@ -1,0 +1,43 @@
+<h3>Administración de Jaulas</h3>
+<router-outlet></router-outlet>
+
+<div class="row my-3 justify-content-center">
+    <div class="col-sm-2">
+        <input type="text" class="form-control" [(ngModel)]="filtroNombre" id="filtro" placeholder="Nombre">
+    </div>
+</div>
+<div class="card">
+    <div class="table-responsive p-0">
+        <table class="table table-hover">
+        <thead class="card-header">
+            <tr>
+            <th class="col-1 text-center">ID</th>
+            <th class="col-1 text-center">Nombre</th>
+            <th class="col-1 text-center">En Uso</th>
+            <th class="col-1 text-center">Acciones</th>
+            </tr>
+        </thead>
+        <tbody class="card-body">
+            <tr *ngIf="jaulas.length == 0">
+            <td colspan="9" class="text-center">No hay jaulas registradas.</td>
+            </tr>
+            <tr *ngFor="let p of jaulas">
+                <ng-container>
+                    <ng-container *ngIf="(p.nombre.includes(filtroNombre))">
+                        <td class="align-middle col-1 text-center">{{p.idJaula}}</td>
+                        <td class="align-middle col-1 text-center">{{p.nombre}}</td>
+                        <td class="align-middle col-1 text-center">{{p.enUso}}</td>
+                        <td class="col-1 text-center">
+                            <a class="m-1 btn btn-primary" [routerLink]="['/modificarjaula', p.idJaula]">Editar</a>
+                            <button class="m-1 btn btn-dark" (click)="borrarJaula(p.idJaula)">Borrar</button>
+                        </td>
+                    </ng-container>
+                </ng-container>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+</div>
+<div class="row flex justify-content-center my-3">
+    <a class="btn btn-primary col-sm-2" routerLink="/nuevajaula">Agregar Jaula</a>
+</div>

@@ -1,0 +1,69 @@
+<h3>Recepción de Productos</h3>
+
+<div class="row my-3 justify-content-center">
+  <div class="col-sm-2">
+    <input type="date" class="form-control" [(ngModel)]="filtroFecha" (change)="filtrarPorFecha()">
+  </div>
+</div>
+<div class="card">
+    <div class="table-responsive p-0">
+        <table class="table table-hover">
+        <thead class="card-header">
+            <tr>
+            <th class="col-1 text-center">Inicio Agendamiento</th>
+            <th class="col-1 text-center">Fin Agendamiento</th>
+            <th class="col-1 text-center">Proveedor</th>
+            <th class="col-1 text-center">Estado</th>
+            <th class="col-1 text-center">Jaula</th>
+            <th class="col-1 text-center">Inicio Recepción</th>
+            <th class="col-1 text-center">Fin Recepción</th>
+            <th class="col-1 text-center">Acciones</th>
+            <th class="col-1 text-center">Detalles</th>
+            </tr>
+        </thead>
+        <tbody class="card-body">
+            <tr *ngIf="reservasFiltradas.length == 0">
+            <td colspan="9" class="text-center">No hay reservas registradas.</td>
+            </tr>
+            <tr *ngFor="let r of reservasFiltradas">
+                <ng-container>
+                  <td class="align-middle col-1 text-center">{{r.horaInicioAgendamiento}}</td>
+                  <td class="align-middle col-1 text-center">{{r.horaFinAgendamiento}}</td>
+                  <td class="align-middle col-1 text-center">{{r.proveedor.nombre || ''}}</td>
+                  <td class="align-middle col-1 text-center">
+                    <ng-container *ngIf="!r.horaFinRecepcion && !r.horaInicioRecepcion; else receptionOrCompleted">
+                      Pendiente
+                    </ng-container>
+                    <ng-template #receptionOrCompleted>
+                      <ng-container *ngIf="r.horaInicioRecepcion && !r.horaFinRecepcion">
+                        En Recepción
+                      </ng-container>
+                      <ng-container *ngIf="r.horaInicioRecepcion && r.horaFinRecepcion">
+                        Completado
+                      </ng-container>
+                    </ng-template>
+                  </td>
+                  <td class="align-middle col-1 text-center">{{r.jaula ? r.jaula.nombre : ''}}</td>
+                  <td class="align-middle col-1 text-center">{{r.horaInicioRecepcion}}</td>
+                  <td class="align-middle col-1 text-center">{{r.horaFinRecepcion}}</td>
+                  <td class="col-1 text-center">
+                    <ng-container *ngIf="!r.horaInicioRecepcion && !r.horaFinRecepcion; else actions">
+                      <a class="m-1" mat-button (click)="openDialogAcciones(r)" style="cursor: pointer;">Iniciar Recepción</a>
+                    </ng-container>
+                    
+                    <ng-template #actions>
+                      <ng-container *ngIf="r.horaInicioRecepcion && !r.horaFinRecepcion">
+                        <a class="m-1" mat-button (click)="openDialogAcciones(r)" style="cursor: pointer;">Finalizar Recepción</a>
+                      </ng-container>
+                    </ng-template>
+                  </td>
+                  
+                  <td class="col-1 text-center">
+                    <a class="m-1" mat-button (click)="openDialogDetalles(r)" style="cursor: pointer;">Ver Detalles</a>
+                  </td>
+                </ng-container>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+</div>

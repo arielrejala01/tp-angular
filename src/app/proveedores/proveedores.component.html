@@ -1,0 +1,41 @@
+<h3>Administración de Proveedores</h3>
+<router-outlet></router-outlet>
+
+<div class="row my-3 justify-content-center">
+    <div class="col-sm-2">
+        <input type="text" class="form-control" [(ngModel)]="filtroNombre" id="filtro" placeholder="Nombre">
+    </div>
+</div>
+<div class="card">
+    <div class="table-responsive p-0">
+        <table class="table table-hover">
+        <thead class="card-header">
+            <tr>
+            <th class="col-1 text-center">ID</th>
+            <th class="col-1 text-center">Nombre</th>
+            <th class="col-1 text-center">Acciones</th>
+            </tr>
+        </thead>
+        <tbody class="card-body">
+            <tr *ngIf="proveedores.length == 0">
+            <td colspan="9" class="text-center">No hay proveedores registrados.</td>
+            </tr>
+            <tr *ngFor="let p of proveedores">
+                <ng-container>
+                    <ng-container *ngIf="(p.nombre.includes(filtroNombre))">
+                        <td class="align-middle col-1 text-center">{{p.idProveedor}}</td>
+                        <td class="align-middle col-1 text-center">{{p.nombre}}</td>
+                        <td class="col-1 text-center">
+                            <a class="m-1 btn btn-primary" [routerLink]="['/modificarproveedor', p.idProveedor]">Editar</a>
+                            <button class="m-1 btn btn-dark" (click)="borrarProveedor(p.idProveedor)">Borrar</button>
+                        </td>
+                    </ng-container>
+                </ng-container>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+</div>
+<div class="row flex justify-content-center my-3">
+    <a class="btn btn-primary col-sm-2" routerLink="/nuevoproveedor">Agregar Proveedor</a>
+</div>

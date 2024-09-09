@@ -1,0 +1,8 @@
+<h3>Modificar Producto</h3>
+<form (ngSubmit)="guardarModificacion()" #productoForm="ngForm">
+    <div class="form-group my-3">
+        <label for="nombre">Nombre:</label>
+        <input type="text" class="form-control" id="nombre" name="nombre" [(ngModel)]="producto.nombre" required>
+    </div>
+    <button type="submit" class="btn btn-primary">Guardar</button>
+</form>

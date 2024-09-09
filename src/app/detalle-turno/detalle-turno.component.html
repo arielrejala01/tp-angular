@@ -1,0 +1,28 @@
+<div>
+    <h3>Reserva ID: {{ reserva?.idTurno }}</h3>
+  
+    <form (ngSubmit)="guardarDetalle()">
+      <div *ngFor="let detalle of detalles; let i = index" class="formset">
+        <div class="my-3">
+          <label for="productoSelect{{i}}">Seleccione el producto:</label>
+          <select class="form-select" id="productoSelect{{i}}" name="producto{{i}}" [(ngModel)]="detalle.producto" required>
+            <option *ngFor="let producto of productosDisponibles" [ngValue]="producto">{{ producto.nombre }}</option>
+          </select>
+        </div>
+  
+        <div class="my-3">
+          <label for="cantidadInput{{i}}">Cantidad:</label>
+          <input class="form-control" id="cantidadInput{{i}}" type="number" name="cantidad{{i}}" [(ngModel)]="detalle.cantidad" required>
+        </div>
+        
+        <!---
+        <div class="d-flex justify-content-center">
+        </div>
+          -->
+        <button type="button" class="btn btn-danger mb-2" (click)="eliminarDetalle(i)">Eliminar</button>
+      </div>    
+  
+      <button type="button" class="btn btn-success me-2" (click)="agregarDetalle()">Agregar Detalle</button>
+      <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
+</div>
